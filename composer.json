@@ -20,6 +20,9 @@
 	"support": {
 		"issues": "https://github.com/fabarea/vidi/issues"
 	},
+	"require": {
+		"macopedia/doctrine-dbal": "dev-master"
+	},
 	"autoload": {
 		"psr-4": {
 			"Fab\\Vidi\\": "Classes/"
