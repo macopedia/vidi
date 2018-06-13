@@ -217,6 +217,7 @@ class VidiDbBackend
     public function parseQuery(QueryInterface $query, array &$parameters)
     {
         $statementParts = [];
+        $statementParts['customSelect'] = $query->getAdditionalStatementSelectParts();
         $statementParts['keywords'] = [];
         $statementParts['tables'] = [];
         $statementParts['unions'] = [];
@@ -309,7 +310,7 @@ class VidiDbBackend
             }
         }
 
-        $statement = 'SELECT ' . implode(' ', $statementParts['keywords']) . ' ' . implode(',', $statementParts['fields']) . ' FROM ' . implode(' ', $statementParts['tables']) . ' ' . implode(' ', $statementParts['unions']);
+        $statement = 'SELECT ' . implode(' ', $statementParts['keywords']) . ' ' . implode(',', $statementParts['fields']) . (count($statementParts['customSelect']) ?',':'') . implode(',', $statementParts['customSelect']) . ' FROM ' . implode(' ', $statementParts['tables']) . ' ' . implode(' ', $statementParts['unions']);
         if (!empty($statementParts['where'])) {
             $statement .= ' WHERE ' . implode('', $statementParts['where']);
             if (!empty($statementParts['additionalWhereClause'][$this->query->getType()])) {

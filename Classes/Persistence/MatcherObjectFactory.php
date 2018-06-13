@@ -154,10 +154,10 @@ class MatcherObjectFactory implements SingletonInterface
      */
     protected function applyCriteriaFromDataTables(Matcher $matcher)
     {
-
         // Special case for Grid in the BE using jQuery DataTables plugin.
         // Retrieve a possible search term from GP.
         $query = GeneralUtility::_GP('search');
+
         if (is_array($query)) {
             if (!empty($query['value'])) {
                 $query = $query['value'];
@@ -166,18 +166,28 @@ class MatcherObjectFactory implements SingletonInterface
             }
         }
 
-        if (strlen($query) > 0) {
+/*        if (strlen($query) > 0) {
 
             // Parse the json query coming from the Visual Search.
             $query = rawurldecode($query);
             $queryParts = json_decode($query, true);
 
-            if (is_array($queryParts)) {
-                $matcher = $this->parseQuery($queryParts, $matcher);
+            // Marcin
+            $rules = [];
+            foreach($queryParts['rules'] as $rule) {
+                if (!is_array($rules['value'])) {
+                    $rules[] = [$rule['field'] => $rule['value']];
+                }
+            }
+            //debug
+            $rules = false;
+
+            if (is_array($rules)) {
+                $matcher = $this->parseQuery($rules, $matcher);
             } else {
                 $matcher->setSearchTerm($query);
             }
-        }
+        }*/
         return $matcher;
     }
 

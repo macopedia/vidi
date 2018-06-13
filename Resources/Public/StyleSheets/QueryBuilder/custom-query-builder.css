@@ -1,0 +1,59 @@
+.query-builder .rules-group-container,
+.t3js-location-geocoder-container {
+	background: #eee;
+	border-color: #ccc;
+}
+
+.t3js-querybuilder {
+	margin-bottom: 1.5rem;
+}
+
+.t3js-location-geocoder-container {
+	margin-bottom: 5px;
+	border-radius: 5px;
+	padding: 10px;
+	border: 1px solid #ccc;
+}
+
+.location-geocoder__headline {
+	margin-bottom: 5px;
+}
+
+.location-geocoder__address,
+.location-geocoder__radius {
+}
+
+.location-geocoder__address {
+	position: relative;
+}
+
+.location-indicator {
+	display: none;
+	position: absolute;
+	top: 10px;
+	right: 20px;
+}
+
+.location-indicator--found {
+	color: #79a548;
+}
+
+.btn__find {
+	min-width: 130px;
+}
+
+.state--normal {
+	display: inline-block;
+}
+
+.state--searching {
+	display: none;
+}
+
+.btn--state .state--normal {
+	display: none;
+}
+
+.btn--state .state--searching {
+	display: inline-block;
+}

@@ -13,7 +13,9 @@ use Fab\Vidi\Domain\Validator\ContentValidator;
 use Fab\Vidi\Domain\Validator\LanguageValidator;
 use Fab\Vidi\Persistence\ConstraintContainer;
 use Fab\Vidi\Persistence\QuerySettings;
+use Fab\Vidi\QueryBuilder\Parser\QueryParser;
 use Fab\Vidi\Resolver\FieldPathResolver;
+use Fab\Vidi\Service\QueryFilterService;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
@@ -233,6 +235,8 @@ class ContentRepository implements RepositoryInterface
             $query->matching($constraints);
         }
 
+        QueryFilterService::applyFilters($query);
+
         return $query->execute();
     }
 
@@ -278,6 +282,8 @@ class ContentRepository implements RepositoryInterface
         if ($constraints) {
             $query->matching($constraints);
         }
+
+        QueryFilterService::applyFilters($query);
 
         return $query->count();
     }

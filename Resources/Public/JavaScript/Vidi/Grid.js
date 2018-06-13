@@ -22,9 +22,8 @@ define([
 	'Fab/Vidi/Vidi/Session',
 	'Fab/Vidi/Vidi/Edit',
 	'Fab/Vidi/Vidi/Delete',
-	'Fab/Vidi/Vidi/VisualSearch',
 	'Fab/Vidi/Vidi/Selection'
-], function($, Notification, Tooltip, Session, VidiEdit, VidiRemove, VisualSearch) {
+], function($, Notification, Tooltip, Session, VidiEdit, VidiRemove) {
 	'use strict';
 
 	var Grid = {
@@ -94,9 +93,9 @@ define([
 						}
 
 						// Also stores value to be used in visual search.
-						if (uri.getQueryParamValue('query')) {
-							Vidi.Session.set('visualSearchQuery', uri.getQueryParamValue('query'));
-						}
+						//if (uri.getQueryParamValue('query')) {
+						//	Vidi.Session.set('visualSearchQuery', uri.getQueryParamValue('query'));
+						//}
 					}
 					return state;
 				},
@@ -104,7 +103,6 @@ define([
 				ajax: {
 					url: Vidi.module.moduleUrl,
 					data: function(data) {
-
 						// Get the parameter related to filter from the URL and "re-inject" them into the Ajax request
 						var uri = new Uri(window.location.href);
 						for (var index = 0; index < uri.queryPairs.length; index++) {
@@ -132,11 +130,11 @@ define([
 						data[Vidi.module.parameterPrefix + '[columns]'] = Vidi.Grid.getListOfVisibleColumns();
 
 						// Handle the search term parameter coming from the Visual Search bar.
-						if (data.search.value) {
+						/*if (data.search.value) {
 
 							if (Vidi.module.areFacetSuggestionsLoaded) {
 								// Save raw query to be used in Vidi Backend.
-								data.search.value = Vidi.VisualSearch.convertExpression(data.search.value);
+								// data.search.value = Vidi.VisualSearch.convertExpression(data.search.value);
 								data[Vidi.module.parameterPrefix + '[searchTerm]'] = data.search.value;
 
 								Vidi.Session.set('query', data.search.value);
@@ -144,7 +142,11 @@ define([
 								data.search.value = Vidi.Session.get('query');
 								data[Vidi.module.parameterPrefix + '[searchTerm]'] = Vidi.Session.get('query');
 							}
-						}
+						}*/
+
+						if (Vidi.Session.has('queryFilters')) {
+                        	data['queryFilters'] = Vidi.Session.get('queryFilters');
+                        }
 
 						data = Vidi.Grid.addAjaxAdditionalParameters(data);
 
@@ -186,11 +188,11 @@ define([
 				lengthMenu: [Vidi.module.lengthMenu, Vidi.module.lengthMenu],
 				displayLength: Vidi.module.defaultLength,
 				initComplete: function() {
-					Vidi.VisualSearch.initialize();
+					//Vidi.VisualSearch.initialize();
 					Vidi.Selection.initialize();
 
-					var query = Vidi.Session.get('visualSearchQuery');
-					Vidi.VisualSearch.instance.searchBox.setQuery(query);
+					//var query = Vidi.Session.get('visualSearchQuery');
+					//Vidi.VisualSearch.instance.searchBox.setQuery(query);
 				},
 
 				/**
@@ -406,9 +408,9 @@ define([
 				}
 
 				// Also stores value to be used in visual search.
-				if (uri.getQueryParamValue('query')) {
-					Vidi.Session.set('visualSearchQuery', uri.getQueryParamValue('query'));
-				}
+				//if (uri.getQueryParamValue('query')) {
+				//	Vidi.Session.set('visualSearchQuery', uri.getQueryParamValue('query'));
+				//}
 			}
 			return config;
 		},

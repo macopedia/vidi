@@ -1,16 +1,15 @@
 <f:be.container pageTitle="Vidi" enableClickMenu="false"
                 includeCssFiles="{
-		0:'{f:uri.resource(path:\'StyleSheets/VisualSearch/visualsearch.css\')}',
-		1:'{f:uri.resource(path:\'StyleSheets/DataTables/datatables.css\')}',
-		2:'{f:uri.resource(path:\'StyleSheets/vidi.css\')}'
+		0:'{f:uri.resource(path:\'StyleSheets/DataTables/datatables.css\')}',
+		1:'{f:uri.resource(path:\'StyleSheets/vidi.css\')}',
+		2:'{f:uri.resource(path:\'StyleSheets/QueryBuilder/query-builder.default.css\')}',
+		3:'{f:uri.resource(path:\'StyleSheets/QueryBuilder/custom-query-builder.css\')}'
 	}"
                  includeJsFiles="{
 		0:'{f:uri.resource(path:\'JavaScript/Uri/Uri.min.js\')}',
 		1:'{f:uri.resource(path:\'JavaScript/Typo3Lang.js\')}',
 		2:'{f:uri.resource(path:\'JavaScript/Compatibility.js\')}',
-		3:'{f:uri.resource(path:\'JavaScript/jQuery/jquery.jeditable.js\')}',
-		4:'{f:uri.resource(path:\'JavaScript/VisualSearch/dependencies.js\')}',
-		5:'{f:uri.resource(path:\'JavaScript/VisualSearch/visualsearch.js\')}'
+		3:'{f:uri.resource(path:\'JavaScript/jQuery/jquery.jeditable.js\')}'
 
 		}">
 
@@ -46,7 +45,6 @@
 		Vidi.icons = {};
 		Vidi.userPreferences = {};
 		Vidi.userPreferences.dataTables = '{v:userPreferences(key: "dataTables")}';
-		Vidi.userPreferences.visualSearchQuery = '{v:userPreferences(key: "visualSearchQuery")}';
 		Vidi.userPreferences.preferenceSignature = '{v:userPreferences(key: "signature")}';
 
 	</v:be.requireJs>

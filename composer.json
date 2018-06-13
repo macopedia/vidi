@@ -6,6 +6,7 @@
 	"license": [
 		"GPL-2.0+"
 	],
+	"version" : "2.6",
 	"keywords": [
 		"TYPO3 CMS",
 		"generic listing"

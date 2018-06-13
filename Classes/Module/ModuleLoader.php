@@ -299,7 +299,7 @@ class ModuleLoader
                 $this->dataType . '_' . $this->moduleKey,
                 $this->position,
                 [
-                    'Content' => 'index, list, delete, update, edit, copy, move, localize, sort, copyClipboard, moveClipboard',
+                    'Content' => 'index, list, filter, delete, update, edit, copy, move, localize, sort, copyClipboard, moveClipboard',
                     'Tool' => 'welcome, work',
                     'Facet' => 'autoSuggest, autoSuggests',
                     'Selection' => 'edit, update, create, delete, list, show',

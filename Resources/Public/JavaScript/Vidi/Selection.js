@@ -47,7 +47,7 @@ define([
 			/**
 			 * Change query in the Visual Search bar dynamically.
 			 */
-			$(document).on('click', '.btn-change-filter', function(e) {
+			/*$(document).on('click', '.btn-change-filter', function(e) {
 
 				// Prevent native submit.
 				e.preventDefault();
@@ -60,7 +60,7 @@ define([
 				var event = $.Event("keydown");
 				event.which = 13; // # Some key code value
 				Vidi.VisualSearch.instance.searchBox.searchEvent(event);
-			});
+			});*/
 
 		},
 

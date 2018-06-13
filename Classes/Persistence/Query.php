@@ -84,6 +84,11 @@ class Query implements QueryInterface
     protected $statement;
 
     /**
+     * @var array
+     */
+    protected $additionalStatementSelectParts = [];
+
+    /**
      * @var int
      */
     protected $orderings = [];
@@ -638,6 +643,36 @@ class Query implements QueryInterface
     public function getStatement()
     {
         return $this->statement;
+    }
+
+    /**
+     * Set additional statement fields
+     *
+     * @param array $additionalStatementSelectParts
+     * @return array
+     */
+    public function setAdditionalStatementSelectParts(array $additionalStatementSelectParts)
+    {
+        return $this->additionalStatementSelectParts = $additionalStatementSelectParts;
+    }
+
+    /**
+     * Returns additional statement select parts.
+     *
+     * @return array
+     */
+    public function getAdditionalStatementSelectParts()
+    {
+        return $this->additionalStatementSelectParts;
+    }
+
+    /**
+     * @param string $part
+     * @return string
+     */
+    public function addAdditionalStatementSelectPart(string $part)
+    {
+        return $this->additionalStatementSelectParts[] = $part;
     }
 
     /**
