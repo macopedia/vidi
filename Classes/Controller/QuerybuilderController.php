@@ -16,10 +16,8 @@ namespace Fab\Vidi\Controller;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Fab\Vidi\QueryBuilder\Parser\QueryParser;
 
 /**
  * Main script class for saving query
@@ -39,17 +37,21 @@ class QuerybuilderController
         $result->status = 'ok';
 
         $requestParams = $request->getQueryParams();
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
-            ->getQueryBuilderForTable('tx_vidi_querybuilder');
+
         $uid = (int)$requestParams['uid'];
         if ((int)$requestParams['override'] === 1 && $uid > 0) {
             $result->uid = $uid;
-            $queryBuilder->update('tx_vidi_querybuilder')
-                ->set('where_parts', $requestParams['query'])
-                ->set('queryname', $requestParams['queryName'])
-                ->where($queryBuilder->expr()->eq('uid', $uid))
-                ->andWhere($queryBuilder->expr()->eq('user', (int)$GLOBALS['BE_USER']->user['uid']))
-                ->execute();
+
+            $clause = '1 = 1';
+            $clause .= ' AND uid=' . (int)uid;
+            $clause .= ' AND user=' . (int)$GLOBALS['BE_USER']->user['uid'];
+
+            $data = [
+                'where_parts' => $requestParams['query'],
+                'queryname' => $requestParams['queryName']
+            ];
+
+            $this->getDatabaseConnection()->exec_UPDATEquery('tx_vidi_querybuilder', $clause, $data);
         } else {
             $data = [
                 'where_parts' => $requestParams['query'],
@@ -57,10 +59,9 @@ class QuerybuilderController
                 'affected_table' => $requestParams['table'],
                 'queryname' => $requestParams['queryName'],
             ];
-            $queryBuilder->insert('tx_vidi_querybuilder')
-                ->values($data)
-                ->execute();
-            $uid = $queryBuilder->getConnection()->lastInsertId('tx_vidi_querybuilder');
+
+            $this->getDatabaseConnection()->exec_INSERTquery('tx_vidi_querybuilder', $data);
+            $uid = $this->getDatabaseConnection()->sql_insert_id();
             $result->uid = $uid;
         }
 
@@ -79,44 +80,15 @@ class QuerybuilderController
     public function ajaxGetRecentQueries(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         $requestParams = $request->getQueryParams();
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
-            ->getQueryBuilderForTable('tx_vidi_querybuilder');
-
-        $results = $queryBuilder
-            ->select('uid','queryname', 'where_parts')
-            ->from('tx_vidi_querybuilder')
-            ->where(
-                $queryBuilder->expr()->eq('affected_table', $queryBuilder->createNamedParameter($requestParams['table'])),
-                $queryBuilder->expr()->eq('user', (int)$GLOBALS['BE_USER']->user['uid'])
-            )
-            ->execute()
-            ->fetchAll();
+        
+        $clause = '1 = 1';
+        $clause .= ' AND affected_table=' . $this->getDatabaseConnection()->fullQuoteStr($requestParams['table'], 'tx_vidi_querybuilder');
+        $clause .= ' AND user=' . (int)$GLOBALS['BE_USER']->user['uid'];
+       
+        $results = $this->getDatabaseConnection()->exec_SELECTgetRows('uid,queryname,where_parts', 'tx_vidi_querybuilder', $clause);
 
         $response->getBody()->write(json_encode($results));
 
-        return $response;
-    }
-
-    /**
-     * Returns parsed query
-     *
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @return ResponseInterface
-     */
-    public function ajaxParseQuery(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
-    {
-        $requestParams = $request->getQueryParams();
-        $table = $requestParams['table'];
-        $query = json_decode($requestParams['query']);
-
-        if ($query && $table) {
-            $parsedQuery = GeneralUtility::makeInstance(QueryParser::class)->parse($query, $table);
-        } else {
-            $parsedQuery = null;
-        }
-
-        $response->getBody()->write(json_encode($parsedQuery));
         return $response;
     }
 
@@ -153,6 +125,16 @@ class QuerybuilderController
         }
 
         return $response;
+    }
+
+    /**
+     * Returns a pointer to the database.
+     *
+     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+     */
+    protected function getDatabaseConnection()
+    {
+        return $GLOBALS['TYPO3_DB'];
     }
 }
 

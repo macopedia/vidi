@@ -19,11 +19,6 @@ return [
         'target' => Fab\Vidi\Controller\QuerybuilderController::class . '::ajaxGetRecentQueries'
     ],
     // Get parsed query
-    'querybuilder_parse_query' => [
-        'path' => '/querybuilder/query/parse',
-        'target' => Fab\Vidi\Controller\QuerybuilderController::class . '::ajaxParseQuery'
-    ],
-    // Get parsed query
     'querybuilder_get_location_coordinates' => [
         'path' => '/querybuilder/location/get/coordinates',
         'target' => Fab\Vidi\Controller\QuerybuilderController::class . '::ajaxGetAddressCoordinates'
