@@ -119,8 +119,6 @@ class QueryFilterService
         $value = is_array($rules['value']) ? $rules['value'][0]:$rules['value'];
         $valueAsArray = $rules['value'];
 
-        $allowedInSeparators = [' ', ',', ';'];
-
         switch ($rules['operator']) {
             case 'equal':
                 $constraint = $query->equals($fieldName, $value);
@@ -129,10 +127,10 @@ class QueryFilterService
                 $constraint = $query->logicalNot($query->equals($fieldName, $value));
                 break;
             case 'in':
-                $constraint = $query->in($fieldName, explode(',', str_replace($allowedInSeparators, ',', $value)));
+                $constraint = $query->in($fieldName, static::splitString($value));
                 break;
             case 'not_in':
-                $constraint = $query->logicalNot($query->in($fieldName, explode(',', str_replace($allowedInSeparators, ',', $value))));
+                $constraint = $query->logicalNot($query->in($fieldName, static::splitString($value)));
                 break;
             case 'begins_with':
                 $constraint = $query->like($fieldName, $value . '%');
@@ -192,5 +190,23 @@ class QueryFilterService
         }
 
         return $constraint;
+    }
+
+    /**
+     * Split string using given pattern
+     *
+     * @param string $string
+     * @param string $pattern
+     * @return array
+     */
+    public static function splitString(string $string, string $pattern = '/[;, ]/')
+    {
+        $values = array_map('trim', preg_split($pattern, $string));
+
+        if (!is_array($values)) {
+            $values = [];
+        }
+
+        return $values;
     }
 }
