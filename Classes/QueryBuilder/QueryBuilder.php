@@ -146,7 +146,8 @@ class QueryBuilder
                 if (!empty($fieldConfig['config']['items'])) {
                     foreach ($fieldConfig['config']['items'] as $item) {
                         $tmp = new stdClass();
-                        $tmp->{$item[1]} = $item[0];
+                        $value = $item[1] ? $item[1]:$item[0];
+                        $tmp->{$value} = $item[0];
                         $values[] = $tmp;
                     }
                 }
