@@ -200,11 +200,11 @@ class ContentRepository implements RepositoryInterface
      * @param Order $order The order
      * @param int $limit
      * @param int $offset
+     * @param null|string $queryFilters
      * @return Content[]
      */
-    public function findBy(Matcher $matcher, Order $order = null, $limit = null, $offset = null)
+    public function findBy(Matcher $matcher, Order $order = null, $limit = null, $offset = null, $queryFilters = null)
     {
-
         $query = $this->createQuery();
 
         $limit = (int)$limit; // make sure to cast
@@ -235,7 +235,9 @@ class ContentRepository implements RepositoryInterface
             $query->matching($constraints);
         }
 
-        QueryFilterService::applyFilters($query);
+        if ($queryFilters !== null) {
+            QueryFilterService::applyFilters($query, $queryFilters);
+        }
 
         return $query->execute();
     }
@@ -270,9 +272,10 @@ class ContentRepository implements RepositoryInterface
      * Count all Contents given specified matches.
      *
      * @param Matcher $matcher
+     * @param string $queryFilters
      * @return int
      */
-    public function countBy(Matcher $matcher)
+    public function countBy(Matcher $matcher, $queryFilters = null)
     {
 
         $query = $this->createQuery();
@@ -283,7 +286,9 @@ class ContentRepository implements RepositoryInterface
             $query->matching($constraints);
         }
 
-        QueryFilterService::applyFilters($query);
+        if ($queryFilters !== null) {
+            QueryFilterService::applyFilters($query, $queryFilters);
+        }
 
         return $query->count();
     }

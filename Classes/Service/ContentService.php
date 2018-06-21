@@ -61,16 +61,16 @@ class ContentService
      * @param Order $order The order
      * @param int $limit
      * @param int $offset
+     * @param string $queryFilters
      * @return $this
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      * @throws \InvalidArgumentException
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
      */
-    public function findBy(Matcher $matcher, Order $order = null, $limit = null, $offset = null)
+    public function findBy(Matcher $matcher, Order $order = null, $limit = null, $offset = null, $queryFilters = null)
     {
-
         // Query the repository.
-        $objects = ContentRepositoryFactory::getInstance($this->dataType)->findBy($matcher, $order, $limit, $offset);
+        $objects = ContentRepositoryFactory::getInstance($this->dataType)->findBy($matcher, $order, $limit, $offset, $queryFilters);
         $signalResult = $this->emitAfterFindContentObjectsSignal($objects, $matcher, $order, $limit, $offset);
 
         // Reset objects variable after possible signal / slot processing.
@@ -80,7 +80,7 @@ class ContentService
         if ($signalResult->getHasBeenProcessed()) {
             $this->numberOfObjects = $signalResult->getNumberOfObjects();
         } else {
-            $this->numberOfObjects = ContentRepositoryFactory::getInstance($this->dataType)->countBy($matcher);
+            $this->numberOfObjects = ContentRepositoryFactory::getInstance($this->dataType)->countBy($matcher, $queryFilters);
         }
 
         return $this;

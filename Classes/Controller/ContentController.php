@@ -94,13 +94,16 @@ class ContentController extends ActionController
      */
     public function listAction(array $columns = [], $matches = [])
     {
+        $filters = GeneralUtility::_GP('queryFilters');
+        $queryFilters = $filters ?:null;
+
         // Initialize some objects related to the query.
         $matcher = MatcherObjectFactory::getInstance()->getMatcher($matches);
         $order = OrderObjectFactory::getInstance()->getOrder();
         $pager = PagerObjectFactory::getInstance()->getPager();
 
         // Fetch objects via the Content Service.
-        $contentService = $this->getContentService()->findBy($matcher, $order, $pager->getLimit(), $pager->getOffset());
+        $contentService = $this->getContentService()->findBy($matcher, $order, $pager->getLimit(), $pager->getOffset(), $queryFilters);
         $pager->setCount($contentService->getNumberOfObjects());
 
         // Assign values.

@@ -15,11 +15,11 @@ class QueryFilterService
      * Sets query filters for query based on posted data
      *
      * @param Query $query
+     * @param string $queryFilters
      */
-    public static function applyFilters(Query &$query)
+    public static function applyFilters(Query &$query, string $queryFilters)
     {
-        $filters = GeneralUtility::_GP('queryFilters');
-        $queryFilters = ($filters != null) ? json_decode($filters, true):[];
+        $queryFilters = ($queryFilters !== null) ? json_decode($queryFilters, true):[];
 
         $constraints = [];
 
@@ -29,7 +29,7 @@ class QueryFilterService
             $constraints[] = static::buildConstraintsForQueryRulesSingleLevel($query, $queryFilters);
         }
 
-        if (isset($queryFilters['lat']) && isset($queryFilters['lng']) && isset($queryFilters['radius'])) {
+        if (isset($queryFilters['lat']) && $queryFilters['lat'] && isset($queryFilters['lng']) && $queryFilters['lng'] && isset($queryFilters['radius'])) {
             $constraints[] = static::getRadiusConstraintsFromLocation(
                 $query,
                 $queryFilters['lat'],
