@@ -76,7 +76,7 @@ define(['jquery',
 
         $inputAddress.on('change paste keyup', function () {
             var addressInputValue = $(this).val();
-            var shouldButtonBeDisabled = (!addressInputValue || /^\s*$/.test(addressInputValue));
+            var shouldButtonBeDisabled = (!addressInputValue || /^\s*$/.test(addressInputValue) || addressInputValue == '');
             $buttonFind.prop('disabled', shouldButtonBeDisabled);
         });
 
@@ -165,7 +165,7 @@ define(['jquery',
         Vidi.Session.set('coordinates', JSON.stringify(LocationGeocoder.locationData));
 
         // show indicator if we have locations's lat anf lng set
-        if (LocationGeocoder.locationData.lat !== null || LocationGeocoder.locationData.lng !== null) {
+        if (!isNaN(parseFloat(LocationGeocoder.locationData.lat)) || !isNaN(parseFloat(LocationGeocoder.locationData.lng))) {
             $locationGeocoder.find('.location-indicator').show();
             $locationGeocoder.find('button[data-action="find"]').prop('disabled', false);
             $locationGeocoder.find('button[data-action="clear"]').prop('disabled', false);
