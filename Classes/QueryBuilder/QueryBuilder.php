@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace Fab\Vidi\Querybuilder;
+namespace Fab\Vidi\QueryBuilder;
 
 use InvalidArgumentException;
 use stdClass;
-use Fab\Vidi\Querybuilder\Backend\Form\FormDataGroup\TcaOnly;
+use Fab\Vidi\QueryBuilder\Backend\Form\FormDataGroup\TcaOnly;
 use TYPO3\CMS\Backend\Form\FormDataCompiler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use UnexpectedValueException;

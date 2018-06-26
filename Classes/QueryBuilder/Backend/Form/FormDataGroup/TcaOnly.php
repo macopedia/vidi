@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Fab\Vidi\Querybuilder\Backend\Form\FormDataGroup;
+namespace Fab\Vidi\QueryBuilder\Backend\Form\FormDataGroup;
 
 /*
  * This file is part of the TYPO3 CMS project.

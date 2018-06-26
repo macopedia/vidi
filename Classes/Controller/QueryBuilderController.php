@@ -22,7 +22,7 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * Main script class for saving query
  */
-class QuerybuilderController
+class QueryBuilderController
 {
     /**
      * @param ServerRequestInterface $request

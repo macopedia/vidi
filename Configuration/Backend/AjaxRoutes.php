@@ -11,16 +11,16 @@ return [
     // Save query
     'querybuilder_save_query' => [
         'path' => '/querybuilder/query/save',
-        'target' => Fab\Vidi\Controller\QuerybuilderController::class . '::ajaxSaveQuery'
+        'target' => Fab\Vidi\Controller\QueryBuilderController::class . '::ajaxSaveQuery'
     ],
     // Get recent queries
     'querybuilder_get_recent_queries' => [
         'path' => '/querybuilder/query/get',
-        'target' => Fab\Vidi\Controller\QuerybuilderController::class . '::ajaxGetRecentQueries'
+        'target' => Fab\Vidi\Controller\QueryBuilderController::class . '::ajaxGetRecentQueries'
     ],
     // Get parsed query
     'querybuilder_get_location_coordinates' => [
         'path' => '/querybuilder/location/get/coordinates',
-        'target' => Fab\Vidi\Controller\QuerybuilderController::class . '::ajaxGetAddressCoordinates'
+        'target' => Fab\Vidi\Controller\QueryBuilderController::class . '::ajaxGetAddressCoordinates'
     ],
 ];

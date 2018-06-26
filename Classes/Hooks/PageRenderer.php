@@ -3,7 +3,7 @@
 namespace Fab\Vidi\Hooks;
 
 use InvalidArgumentException;
-use Fab\Vidi\Querybuilder\QueryBuilder;
+use Fab\Vidi\QueryBuilder\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 use UnexpectedValueException;
