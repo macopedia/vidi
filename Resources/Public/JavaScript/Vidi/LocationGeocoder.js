@@ -33,12 +33,12 @@ define(['jquery',
                     '<input name="address" class="form-control" placeholder="' + (TYPO3.lang['location.geocoder.placeholder.address'] || 'address') + '">' +
                     '<i class="fa fa-check-circle-o location-indicator location-indicator--found" aria-hidden="true"></i>' +
                 '</div>' +
-                '<div class="col-xs-12 col-sm-2 col-md-2 col-lg-1 location-geocoder__radius">' +
+                '<div class="col-xs-12 col-sm-2 col-md-2 location-geocoder__radius">' +
                     '<div class="input-group">' +
                         '<input name="radius" value="1" type="number" step="1" min="1" max="100" class="form-control" placeholder="' + (TYPO3.lang['location.geocoder.placeholder.radius'] || 'distance') + '"><span class="input-group-addon">km</span>' +
                     '</div>' +
                 '</div>' +
-                '<div class="col-xs-12 col-md-6 col-lg-8 location-geocoder__buttons">' +
+                '<div class="col-xs-12 col-md-6 col-lg-7 location-geocoder__buttons">' +
                     '<button data-action="find" class="btn btn-default btn__find" disabled>' +
                         '<span class="state--normal">' + (TYPO3.lang['location.geocoder.button.findLocation'] || 'Find location') + '</span>' +
                         '<span class="state--searching">' + (TYPO3.lang['location.geocoder.button.searching'] || 'Searching') + ' <i class="fa fa-spinner fa-spin"></i></span>' +
