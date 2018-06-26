@@ -2,7 +2,10 @@
 
 namespace Fab\Vidi\Service;
 
+use Fab\Vidi\Tca\Tca;
 use Fab\Vidi\Persistence\Query;
+use TYPO3\CMS\Core\Utility\MathUtility;
+use Fab\Vidi\Resolver\FieldPathResolver;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -16,6 +19,10 @@ class QueryFilterService
      *
      * @param Query $query
      * @param string $queryFilters
+     * @throws \Fab\Vidi\Exception\InvalidKeyInArrayException
+     * @throws \Fab\Vidi\Exception\NotExistingClassException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\InvalidNumberOfConstraintsException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\UnexpectedTypeException
      */
     public static function applyFilters(Query &$query, string $queryFilters)
     {
@@ -47,10 +54,11 @@ class QueryFilterService
      * Returns radius constraints from location constraints
      *
      * @param Query $query
-     * @param float $lat
-     * @param float $lng
+     * @param $lat
+     * @param $lng
      * @param int $radius
      * @return \TYPO3\CMS\Extbase\Persistence\Generic\Qom\AndInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\InvalidNumberOfConstraintsException
      */
     public static function getRadiusConstraintsFromLocation(Query &$query, $lat, $lng, $radius = 5)
     {
@@ -80,7 +88,11 @@ class QueryFilterService
      *
      * @param Query $query
      * @param $rules
-     * @return array
+     * @return array|\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ComparisonInterface|\TYPO3\CMS\Extbase\Persistence\Generic\Qom\NotInterface
+     * @throws \Fab\Vidi\Exception\InvalidKeyInArrayException
+     * @throws \Fab\Vidi\Exception\NotExistingClassException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\InvalidNumberOfConstraintsException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\UnexpectedTypeException
      */
     public static function buildConstraintsForQueryRulesSingleLevel(Query $query, $rules)
     {
@@ -108,7 +120,11 @@ class QueryFilterService
      *
      * @param Query $query
      * @param $rules
-     * @return bool|\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ComparisonInterface|\TYPO3\CMS\Extbase\Persistence\Generic\Qom\NotInterface
+     * @return \TYPO3\CMS\Extbase\Persistence\Generic\Qom\ComparisonInterface|\TYPO3\CMS\Extbase\Persistence\Generic\Qom\NotInterface
+     * @throws \Fab\Vidi\Exception\InvalidKeyInArrayException
+     * @throws \Fab\Vidi\Exception\NotExistingClassException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\InvalidNumberOfConstraintsException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\UnexpectedTypeException
      */
     public static function getConstraintForRule(Query $query, $rules)
     {
@@ -121,37 +137,37 @@ class QueryFilterService
 
         switch ($rules['operator']) {
             case 'equal':
-                $constraint = $query->equals($fieldName, $value);
+                $constraint = $query->equals(static::getFieldNameAndPath($query, $fieldName, $value), $value);
                 break;
             case 'not_equal':
-                $constraint = $query->logicalNot($query->equals($fieldName, $value));
+                $constraint = $query->logicalNot($query->equals(static::getFieldNameAndPath($query, $fieldName, $value), $value));
                 break;
             case 'in':
-                $constraint = $query->in($fieldName, static::splitString($value));
+                $constraint = $query->in(static::getFieldNameAndPath($query, $fieldName, $value), static::splitString($value));
                 break;
             case 'not_in':
-                $constraint = $query->logicalNot($query->in($fieldName, static::splitString($value)));
+                $constraint = $query->logicalNot($query->in(static::getFieldNameAndPath($query, $fieldName, $value), static::splitString($value)));
                 break;
             case 'begins_with':
-                $constraint = $query->like($fieldName, $value . '%');
+                $constraint = $query->like(static::getFieldNameAndPath($query, $fieldName, $value), $value . '%');
                 break;
             case 'not_begins_with':
-                $constraint = $query->logicalNot($query->like($fieldName, $value . '%'));
+                $constraint = $query->logicalNot($query->like(static::getFieldNameAndPath($query, $fieldName, $value), $value . '%'));
                 break;
             case 'contains':
-                $constraint = $query->like($fieldName, '%' . $value . '%');
+                $constraint = $query->like(static::getFieldNameAndPath($query, $fieldName, $value), '%' . $value . '%');
                 break;
             case 'not_contains':
-                $constraint = $query->logicalNot($query->like($fieldName, '%' . $value . '%'));
+                $constraint = $query->logicalNot($query->like(static::getFieldNameAndPath($query, $fieldName, $value), '%' . $value . '%'));
                 break;
             case 'ends_with':
-                $constraint = $query->like($fieldName, '%' . $value);
+                $constraint = $query->like(static::getFieldNameAndPath($query, $fieldName, $value), '%' . $value);
                 break;
             case 'not_ends_with':
-                $constraint = $query->logicalNot($query->like($fieldName, '%' . $value));
+                $constraint = $query->logicalNot($query->like(static::getFieldNameAndPath($query, $fieldName, $value), '%' . $value));
                 break;
             case 'is_empty':
-                $constraint = $query->equals($fieldName, '');
+                $constraint = $query->equals(static::getFieldNameAndPath($query, $fieldName, $value), '');
                 break;
             //case 'is_null':
             //    $constraint = $query->logicalAnd($query->equals($fieldName, null));
@@ -160,36 +176,76 @@ class QueryFilterService
             //    $constraint = $query->logicalAnd($query->equals($fieldName, null));
             //    break;
             case 'is_not_empty':
-                $constraint = $query->logicalNot($query->equals($fieldName, ''));
+                $constraint = $query->logicalNot($query->equals(static::getFieldNameAndPath($query, $fieldName, $value), ''));
                 break;
             case 'less':
-                $constraint = $query->lessThan($fieldName, $value);
+                $constraint = $query->lessThan(static::getFieldNameAndPath($query, $fieldName, $value), $value);
                 break;
             case 'less_or_equal':
-                $constraint = $query->lessThanOrEqual($fieldName, $value);
+                $constraint = $query->lessThanOrEqual(static::getFieldNameAndPath($query, $fieldName, $value), $value);
                 break;
             case 'greater':
-                $constraint = $query->greaterThan($fieldName, $value);
+                $constraint = $query->greaterThan(static::getFieldNameAndPath($query, $fieldName, $value), $value);
                 break;
             case 'greater_or_equal':
-                $constraint = $query->greaterThanOrEqual($fieldName, $value);
+                $constraint = $query->greaterThanOrEqual(static::getFieldNameAndPath($query, $fieldName, $value), $value);
                 break;
             case 'between':
                 $constraint = $query->logicalAnd(
-                    $query->greaterThanOrEqual($fieldName, $valueAsArray[0]),
-                    $query->lessThanOrEqual($fieldName, $valueAsArray[1])
+                    $query->greaterThanOrEqual(static::getFieldNameAndPath($query, $fieldName, $value), $valueAsArray[0]),
+                    $query->lessThanOrEqual(static::getFieldNameAndPath($query, $fieldName, $value), $valueAsArray[1])
                 );
                 break;
             case 'not_between':
                 $constraint = $query->logicalNot(
-                    $query->greaterThanOrEqual($fieldName, $valueAsArray[0]),
-                    $query->lessThanOrEqual($fieldName, $valueAsArray[1])
+                    $query->greaterThanOrEqual(static::getFieldNameAndPath($query, $fieldName, $value), $valueAsArray[0]),
+                    $query->lessThanOrEqual(static::getFieldNameAndPath($query, $fieldName, $value), $valueAsArray[1])
                 );
                 break;
-            default: $constraint = $query->like($fieldName, $value);
+            default: $constraint = $query->like(static::getFieldNameAndPath($query, $fieldName, $value), $value);
         }
 
         return $constraint;
+    }
+
+    /**
+     * Resolves filed path for constraint
+     *
+     * @param Query $query
+     * @param string $field
+     * @param mixed $value
+     * @return string
+     * @throws \Fab\Vidi\Exception\InvalidKeyInArrayException
+     * @throws \Fab\Vidi\Exception\NotExistingClassException
+     */
+    protected static function getFieldNameAndPath(Query $query, $field, $value)
+    {
+        $fieldPathResolver = GeneralUtility::makeInstance(FieldPathResolver::class);
+        $fieldNameAndPath = $field;
+
+        // Compute a few variables...
+        // $dataType is generally equals to $this->dataType but not always... if fieldName is a path.
+        $dataType = $fieldPathResolver->getDataType($field, $query->getType());
+        $fieldName = $fieldPathResolver->stripFieldPath($field, $query->getType());
+        $fieldPath = $fieldPathResolver->stripFieldName($field, $query->getType());
+
+        if (Tca::table($dataType)->field($fieldName)->hasRelation()) {
+            if (MathUtility::canBeInterpretedAsInteger($value)) {
+                $fieldNameAndPath = $fieldName . '.uid';
+            } else {
+                $foreignTableName = Tca::table($dataType)->field($fieldName)->getForeignTable();
+                $foreignTable = Tca::table($foreignTableName);
+                $fieldNameAndPath = $fieldName . '.' . $foreignTable->getLabelField();
+            }
+
+            // If different means we should restore the prepended path segment for proper SQL parser.
+            // This is true for a composite field, e.g items.sys_file_metadata for categories.
+            if ($fieldName !== $fieldPath) {
+                $fieldNameAndPath = $fieldPath . '.' . $fieldNameAndPath;
+            }
+        }
+
+        return $fieldNameAndPath;
     }
 
     /**
