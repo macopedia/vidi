@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" target-language="pl" datatype="plaintext" original="messages" date="2011-10-17T20:22:32Z" product-name="local lang module">
+		<header/>
+		<body>
+			<trans-unit id="selection">
+				<source>Selection</source>
+				<target>Zaznaczenie</target>
+			</trans-unit>
+			<trans-unit id="visibility">
+				<source>Visibility</source>
+				<target>Widoczność</target>
+			</trans-unit>
+			<trans-unit id="visibility.everyone">
+				<source>Everyone</source>
+				<target>Wszyscy</target>
+			</trans-unit>
+			<trans-unit id="visibility.private">
+				<source>Private</source>
+				<target>Prywanty</target>
+			</trans-unit>
+			<trans-unit id="visibility.admin_only">
+				<source>Admin only</source>
+				<target>Tylko administrator</target>
+			</trans-unit>
+			<trans-unit id="name">
+				<source>Name</source>
+				<target>Nazwa</target>
+			</trans-unit>
+			<trans-unit id="data_type">
+				<source>Data type</source>
+				<target>Rodzaj daty</target>
+			</trans-unit>
+			<trans-unit id="query">
+				<source>Query</source>
+				<target>Zapytanie</target>
+			</trans-unit>
+			<trans-unit id="speaking_query">
+				<source>Speaking query</source>
+				<target>Mówiące zapytanie</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
