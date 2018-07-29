@@ -601,6 +601,7 @@ Configuration of ``$GLOBALS['TCA']['tx_foo']['vidi']`` as example::
 			'felogin_redirectPid' => 'feLoginRedirectPid',
 			'felogin_forgotHash' => 'feLoginForgotHash',
 		),
+		'showLocationSearchForm' => 1,
 	),
 
 Possible key and values that can be assigned for key ``vidi``

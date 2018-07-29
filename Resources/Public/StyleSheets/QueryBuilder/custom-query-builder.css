@@ -1,5 +1,4 @@
-.query-builder .rules-group-container,
-.t3js-location-geocoder-container {
+.query-builder .rules-group-container, .t3js-location-geocoder {
 	background: #eee;
 	border-color: #ccc;
 }
@@ -8,7 +7,7 @@
 	margin-bottom: 1.5rem;
 }
 
-.t3js-location-geocoder-container {
+.t3js-location-geocoder {
 	margin-bottom: 5px;
 	border-radius: 5px;
 	padding: 10px;
