@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2012-10-17T17:55:17Z" product-name="local lang">
+		<header/>
+		<body>
+			<trans-unit id="tx_vidi">
+				<source>Vidi</source>
+				<target>Vidi</target>
+			</trans-unit>
+			<trans-unit id="publish-dates">
+				<source>Publish Dates</source>
+				<target>Daty publikacji</target>
+			</trans-unit>
+			<trans-unit id="success-delete">
+				<source>Record "%s" has been deleted.</source>
+				<target>Rekord "%s" został usunięty.</target>
+			</trans-unit>
+			<trans-unit id="success-mass-delete">
+				<source>%s/%s records have been deleted</source>
+				<target>%s/%s rekordów zostało usuniętych</target>
+			</trans-unit>
+			<trans-unit id="success-update">
+				<source>Record "%s" has been updated.</source>
+				<target>Rekord "%s" został zaktualizowany.</target>
+			</trans-unit>
+			<trans-unit id="success-mass-update">
+				<source>%s/%s records have been updated</source>
+				<target>%s/%s rekordów zostało zaktualizowanych</target>
+			</trans-unit>
+			<trans-unit id="confirm-delete">
+				<source>Are you sure to delete "%s"?</source>
+				<target>Czy jesteś pewny, że chcesz usunąć "%s"?</target>
+			</trans-unit>
+			<trans-unit id="confirm-mass-delete-singular">
+				<source>Are you sure you want to delete %s record?</source>
+				<target>Czy jesteś pewny, że chcesz usunąć rekord %s?</target>
+			</trans-unit>
+			<trans-unit id="confirm-mass-delete-plural">
+				<source>Are you sure you want to delete %s records?</source>
+				<target>Czy jesteś pewny, że chcesz usunąć %s rekordów?</target>
+			</trans-unit>
+			<trans-unit id="message-error">
+				<source>Transaction did not succeed</source>
+				<target>Transakcja nie powiodła się</target>
+			</trans-unit>
+			<trans-unit id="save">
+				<source>Save</source>
+				<target>Zapisz</target>
+			</trans-unit>
+			<trans-unit id="record">
+				<source>record</source>
+				<target>rekord</target>
+			</trans-unit>
+			<trans-unit id="records">
+				<source>records</source>
+				<target>rekordy</target>
+			</trans-unit>
+			<trans-unit id="save.relations">
+				<source>Save relations</source>
+				<target>Zapisz relację</target>
+			</trans-unit>
+			<trans-unit id="close">
+				<source>Close</source>
+				<target>Zamknij</target>
+			</trans-unit>
+			<trans-unit id="new">
+				<source>New</source>
+				<target>Nowy</target>
+			</trans-unit>
+			<trans-unit id="action.edit">
+				<source>Edit</source>
+				<target>Edytuj</target>
+			</trans-unit>
+			<trans-unit id="action.move">
+				<source>Move</source>
+				<target>Przenieś</target>
+			</trans-unit>
+			<trans-unit id="duplicate">
+				<source>Duplicate</source>
+				<target>Duplikuj</target>
+			</trans-unit>
+			<trans-unit id="delete">
+				<source>Delete</source>
+				<target>Usuń</target>
+			</trans-unit>
+			<trans-unit id="deleting">
+				<source>Deleting...</source>
+				<target>Usuwanie...</target>
+			</trans-unit>
+			<trans-unit id="number">
+				<source>#</source>
+				<target>#</target>
+			</trans-unit>
+			<trans-unit id="search">
+				<source>Search...</source>
+				<target>Szukaj...</target>
+			</trans-unit>
+			<trans-unit id="cancel">
+				<source>Cancel</source>
+				<target>Anuluj</target>
+			</trans-unit>
+			<trans-unit id="ok">
+				<source>OK</source>
+				<target>OK</target>
+			</trans-unit>
+			<trans-unit id="are-you-sure">
+				<source>Are you sure?</source>
+				<target>Czy jesteś pewny?</target>
+			</trans-unit>
+			<trans-unit id="item">
+				<source>item</source>
+				<target>Transakcja nie powiodła się</target>
+			</trans-unit>
+			<trans-unit id="items">
+				<source>items</source>
+				<target>elementy</target>
+			</trans-unit>
+			<trans-unit id="tstamp">
+				<source>Modification date</source>
+				<target>Data powiadomienia</target>
+			</trans-unit>
+			<trans-unit id="crdate">
+				<source>Creation date</source>
+				<target>Data utworzenia</target>
+			</trans-unit>
+			<trans-unit id="name">
+				<source>Name</source>
+				<target>Nazwa</target>
+			</trans-unit>
+			<trans-unit id="visibility">
+				<source>Visibility</source>
+				<target>Widoczność</target>
+			</trans-unit>
+			<trans-unit id="visibility_abbreviation">
+				<source>Vis.</source>
+				<target>Wid.</target>
+			</trans-unit>
+			<trans-unit id="active">
+				<source>Active</source>
+				<target>Aktywny</target>
+			</trans-unit>
+			<trans-unit id="active.0">
+				<source>Yes</source>
+				<target>Tak</target>
+			</trans-unit>
+			<trans-unit id="active.1">
+				<source>No</source>
+				<target>Nie</target>
+			</trans-unit>
+			<trans-unit id="selected_rows">
+				<source>Selected rows...</source>
+				<target>Zaznaczone wiersze...</target>
+			</trans-unit>
+			<trans-unit id="for_selected_rows">
+				<source>For selected rows (%s)</source>
+				<target>Dla wybranych wierszy (%s)</target>
+			</trans-unit>
+			<trans-unit id="for_all_rows">
+				<source>For all rows (%s)</source>
+				<target>Dla wszystkich wierszy (%s)</target>
+			</trans-unit>
+			<trans-unit id="export-csv">
+				<source>Export CSV</source>
+				<target>Eksportuj CSV</target>
+			</trans-unit>
+			<trans-unit id="export-xml">
+				<source>Export XML</source>
+				<target>Eksportuj XML</target>
+			</trans-unit>
+			<trans-unit id="export-xls">
+				<source>Export XLS</source>
+				<target>Eksportuj XLS</target>
+			</trans-unit>
+			<trans-unit id="remove_relation">
+				<source>Remove relation</source>
+				<target>Usuń relację</target>
+			</trans-unit>
+			<trans-unit id="append_relation">
+				<source>Append relation</source>
+				<target>Dołącz relację</target>
+			</trans-unit>
+			<trans-unit id="replace_relation">
+				<source>Replace relation</source>
+				<target>Zastąp relację</target>
+			</trans-unit>
+			<trans-unit id="editing_many_rows_takes_time">
+				<source>Editing more than 300 records is time consuming and can last up to a few minutes.</source>
+				<target>Edytowanie więcj niż 300 rekordów jest czasochłonne i może potrwać do kilku minut.</target>
+			</trans-unit>
+			<trans-unit id="attention">
+				<source>Attention!</source>
+				<target>Uwaga!</target>
+			</trans-unit>
+			<trans-unit id="start_editing">
+				<source>Click to start editing</source>
+				<target>Kliknij aby rozpocząć edycję</target>
+			</trans-unit>
+			<trans-unit id="create_translation">
+				<source>Create new translation</source>
+				<target>utwórz nowe tłumaczenie</target>
+			</trans-unit>
+			<trans-unit id="manage_selections">
+				<source>Manage Selections</source>
+				<target>Zarządzaj Zaznaczeniami</target>
+			</trans-unit>
+			<trans-unit id="enter_name_for_selection">
+				<source>Enter the name for the current selection...</source>
+				<target>Wprowadź nazwę dla aktualnego zaznaczenia...</target>
+			</trans-unit>
+			<trans-unit id="menu_visible_items">
+				<source>Entries displayed in the menu "number of visible items"</source>
+				<target>Pozycje wyświetlanie w menu "liczba widocznych elementów"</target>
+			</trans-unit>
+			<trans-unit id="menu_visible_items_default">
+				<source>Default entry in the menu "number of visible items"</source>
+				<target>Domyślna pozycja w menu "liczba widocznych elementów"</target>
+			</trans-unit>
+			<trans-unit id="preferences_for">
+				<source>Preferences for</source>
+				<target>Preferencje dla</target>
+			</trans-unit>
+			<trans-unit id="preferences_for">
+				<source>Preferences for</source>
+				<target>Preferencje dla</target>
+			</trans-unit>
+			<trans-unit id="module_preferences_for">
+				<source>Module preferences for %s</source>
+				<target>Preferencje moduły dla %s</target>
+			</trans-unit>
+			<trans-unit id="visible_columns">
+				<source>Visible columns</source>
+				<target>Widoczne kolumny</target>
+			</trans-unit>
+			<trans-unit id="edit_preferences">
+				<source>Edit preferences for this module</source>
+				<target>Edytuj preferencje dla tego modułu</target>
+			</trans-unit>
+			<trans-unit id="analyse_relations">
+				<source>Analyse relations in TCA</source>
+				<target>Analizuj relacje w TCA</target>
+			</trans-unit>
+			<trans-unit id="reload_data">
+				<source>Reload data</source>
+				<target>Przeładuj dane</target>
+			</trans-unit>
+			<trans-unit id="show_hide_columns">
+				<source>Show / hide columns</source>
+				<target>Pokaż / ukryj kolumny</target>
+			</trans-unit>
+			<trans-unit id="open_tools">
+				<source>Open tools</source>
+				<target>Otwórz narzadzia</target>
+			</trans-unit>
+			<trans-unit id="visibility.everyone">
+				<source>Everyone</source>
+				<target>Wszyscy</target>
+			</trans-unit>
+			<trans-unit id="visibility.private">
+				<source>Private</source>
+				<target>Prywanty</target>
+			</trans-unit>
+			<trans-unit id="visibility.admin_only">
+				<source>Admin only</source>
+				<target>Tylko administrator</target>
+			</trans-unit>
+			<trans-unit id="query.update">
+				<source>Update the current selection</source>
+				<target>Aktualizuj obecne zaznaczenie</target>
+			</trans-unit>
+			<trans-unit id="selection.update">
+				<source>Update name or visibility</source>
+				<target>Aktualizuj nazwę lub widoczność</target>
+			</trans-unit>
+			<trans-unit id="selections">
+				<source>Selections</source>
+				<target>Zazaczenia</target>
+			</trans-unit>
+			<trans-unit id="message.send">
+				<source>Send message</source>
+				<target>Wyślij wiadomość</target>
+			</trans-unit>
+			<trans-unit id="selection.add">
+				<source>Add selection</source>
+				<target>Dodaj zaznaczenie</target>
+			</trans-unit>
+			<trans-unit id="clipboard.save">
+				<source>Copy to clipboard</source>
+				<target>Kopiuj do schowka</target>
+			</trans-unit>
+			<trans-unit id="clipboard.copy_or_move">
+				<source>Copy or move items from the clipboard</source>
+				<target>Kopiuj lub przenieś elementy ze schowka</target>
+			</trans-unit>
+			<trans-unit id="clipboard.are_you_sure">
+				<source>You are going to move %s items here. Are you sure?</source>
+				<target>Masz zamiat przenieść tutaj %s elementów. Czt jesteś pewny?</target>
+			</trans-unit>
+			<trans-unit id="clipboard.items_saved">
+				<source>%s items have been saved in the clipboard.</source>
+				<target>%s elementów zostało zapisanych w schowku.</target>
+			</trans-unit>
+			<trans-unit id="clipboard.items_not_saved">
+				<source>Items were not saved in the clipboard.</source>
+				<target>Elementy nie zostały zapisane w schowku.</target>
+			</trans-unit>
+			<trans-unit id="general.error">
+				<source>Something went wrong</source>
+				<target>Coś poszło nie tak</target>
+			</trans-unit>
+			<trans-unit id="clipboard.copy_items">
+				<source>Copy items</source>
+				<target>Kopiuj elementy</target>
+			</trans-unit>
+			<trans-unit id="clipboard.move_items">
+				<source>Move items</source>
+				<target>Przenieś elementy</target>
+			</trans-unit>
+			<trans-unit id="relation.replace">
+				<source>Replace relations</source>
+				<target>Zastąp relacje</target>
+			</trans-unit>
+			<trans-unit id="relation.append">
+				<source>Append relations</source>
+				<target>Dołącz relacje</target>
+			</trans-unit>
+			<trans-unit id="relation.remove">
+				<source>Remove relations</source>
+				<target>Usuń relacje</target>
+			</trans-unit>
+			<trans-unit id="clipboard.empty_clipboard">
+				<source>Empty clipboard afterwards?</source>
+				<target>Opróznić następnie schowek?</target>
+			</trans-unit>
+			<trans-unit id="expression.available">
+				<source>Available expressions</source>
+				<target>Dostepne wyrażenia</target>
+			</trans-unit>
+			<trans-unit id="expression.usable">
+				<source>Expressions that can be used to replace content:</source>
+				<target>Wyrażenie które może być uzyte aby zastąpić zawartość</target>
+			</trans-unit>
+			<trans-unit id="expression.current_content">
+				<source>symbolise the current content</source>
+				<target>symbolizują aktualną zawartość</target>
+			</trans-unit>
+			<trans-unit id="expression.counter">
+				<source>counter when looping around the records</source>
+				<target>licznik podczas zapętlenia wokół rekordów</target>
+			</trans-unit>
+			<trans-unit id="expression.date">
+				<source>date of day</source>
+				<target>data dnia</target>
+			</trans-unit>
+			<trans-unit id="expression.create_data">
+				<source>creation date of the record - if available.</source>
+				<target>data utworzenia rekordy - jeżeli dostępna.</target>
+			</trans-unit>
+			<trans-unit id="expression.find_and_replace">
+				<source>expression to find and replace.</source>
+				<target>wyrażenie do wyszukania i zastąpienia.</target>
+			</trans-unit>
+			<trans-unit id="expression.search">
+				<source>search</source>
+				<target>szukaj</target>
+			</trans-unit>
+			<trans-unit id="expression.replace">
+				<source>replace</source>
+				<target>zastąp</target>
+			</trans-unit>
+			<trans-unit id="expression.combined">
+				<source>Expressions can be combined as example:</source>
+				<target>Wyrażenia mogą być łączone jak na przykład:</target>
+			</trans-unit>
+			<trans-unit id="expression.example">
+				<source>text appended</source>
+				<target>tekst dołączony</target>
+			</trans-unit>
+			<trans-unit id="expression.example">
+				<source>text appended</source>
+				<target>tekst dołączony</target>
+			</trans-unit>
+			<trans-unit id="facet.pid">
+				<source>Page</source>
+				<target>Strona</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
