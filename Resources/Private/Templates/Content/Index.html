@@ -76,7 +76,7 @@
 		     {v:render.components(part: 'gridTop') -> f:format.raw()}
 
 			<table class="table table-striped table-hover typo3-extension-list dataTable"
-			       id="content-list" data-table="tx_benefitsearch_domain_model_multisport">
+			       id="content-list" data-table="{v:moduleLoader(key: 'dataType')}">
 				<thead>
 				<tr class="t3-row-header">
 					<f:for each="{columns}" key="columnName" as="configuration">
