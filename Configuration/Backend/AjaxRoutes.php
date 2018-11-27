@@ -13,6 +13,11 @@ return [
         'path' => '/querybuilder/query/save',
         'target' => Fab\Vidi\Controller\QueryBuilderController::class . '::ajaxSaveQuery'
     ],
+    // Delete query
+    'querybuilder_delete_query' => [
+        'path' => '/querybuilder/query/delete',
+        'target' => Fab\Vidi\Controller\QueryBuilderController::class . '::ajaxDeleteQuery'
+    ],
     // Get recent queries
     'querybuilder_get_recent_queries' => [
         'path' => '/querybuilder/query/get',

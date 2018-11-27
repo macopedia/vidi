@@ -69,6 +69,26 @@
 			<trans-unit id="location.geocoder.notification.geocodingCantFindAddress">
 				<source>Geocoding service is ubale to find this address.</source>
 			</trans-unit>
+
+			<trans-unit id="filters.apply.empty">
+				<source>You can't apply an empty filter. Please define some conditions.</source>
+			</trans-unit>
+
+			<trans-unit id="recentQueries.delete">
+				<source>Delete selected query</source>
+			</trans-unit>
+			<trans-unit id="recentQueries.delete.error">
+				<source>Query delete error</source>
+			</trans-unit>
+			<trans-unit id="recentQueries.delete.error.text">
+				<source>An error occurred while deleting the selected query</source>
+			</trans-unit>
+			<trans-unit id="recentQueries.deleted">
+				<source>Query deleted</source>
+			</trans-unit>
+			<trans-unit id="recentQueries.deleted.text">
+				<source>Your query has been deleted</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

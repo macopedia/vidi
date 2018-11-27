@@ -90,6 +90,32 @@
 				<source>Geocoding service is ubale to find this address.</source>
 				<target>Serwis geokodowania nie może odnaleźć tego adresu.</target>
 			</trans-unit>
+
+			<trans-unit id="filters.apply.empty">
+				<source>You can't apply an empty filter. Please define some conditions.</source>
+				<target>Nie można zastosować pustego filtru. Zdefiniuj niektóre warunki.</target>
+			</trans-unit>
+
+			<trans-unit id="recentQueries.delete">
+				<source>Delete selected query</source>
+				<target>Usuń wybrane zapytanie</target>
+			</trans-unit>
+			<trans-unit id="recentQueries.delete.error">
+				<source>Query delete error</source>
+				<target>Błąd usuwania zapytania</target>
+			</trans-unit>
+			<trans-unit id="recentQueries.delete.error.text">
+				<source>An error occurred while deleting the selected query</source>
+				<target>Wystąpił błąd podczas usuwania wybranego zapytania</target>
+			</trans-unit>
+			<trans-unit id="recentQueries.deleted">
+				<source>Query deleted</source>
+				<target>Zapytanie usunięte</target>
+			</trans-unit>
+			<trans-unit id="recentQueries.deleted.text">
+				<source>Your query has been deleted</source>
+				<target>Twoje zapytanie zostało usunięte</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

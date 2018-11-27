@@ -77,6 +77,40 @@ class QueryBuilderController
      * @return ResponseInterface
      * @throws \InvalidArgumentException
      */
+    public function ajaxDeleteQuery(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
+    {
+        $result = new \stdClass();
+        $result->status = 'ok';
+
+        $requestParams = $request->getQueryParams();
+
+        $uid = (int)$requestParams['uid'];
+
+        $clause = '1 = 1';
+        $clause .= ' AND uid=' . $uid;
+        $clause .= ' AND user=' . (int)$GLOBALS['BE_USER']->user['uid'];
+
+        $record = $this->getDatabaseConnection()->exec_SELECTgetSingleRow('uid', 'tx_vidi_querybuilder', $clause);
+
+        if ($record) {
+            $this->getDatabaseConnection()->exec_DELETEquery('tx_vidi_querybuilder', 'uid = ' . (int)$record['uid']);
+        } else {
+            $result->status = 'fail';
+            $result->error = 'Object does not exist, or You are ot owner of this object';
+        }
+
+        $response->getBody()->write(json_encode($result));
+
+        return $response;
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     *
+     * @return ResponseInterface
+     * @throws \InvalidArgumentException
+     */
     public function ajaxGetRecentQueries(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         $requestParams = $request->getQueryParams();

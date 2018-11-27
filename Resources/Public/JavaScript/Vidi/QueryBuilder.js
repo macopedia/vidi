@@ -39,15 +39,18 @@ define(['jquery',
     selectorBuilderContainer: '.t3js-querybuilder',
     selectorBuilder: '.t3js-querybuilder-builder',
     template: '<div class="t3js-querybuilder">' +
-    '<div class="t3js-querybuilder-builder"></div>' +
-    '<div class="t3js-location-geocoder-container"></div>' +
-    '<div class="btn-group"></div>' +
-    '<div class="t3js-querybuilder-queries">' +
-    '<select name="recent-queries" class="form-control" id="t3js-querybuilder-recent-queries">' +
-    '<option class="first-opt" value="-1"></option>' +
-    '</select>' +
-    '</div>' +
-    '</div>',
+      '<div class="t3js-querybuilder-builder"></div>' +
+      '<div class="t3js-location-geocoder-container"></div>' +
+      '<div class="btn-group"></div>' +
+      '<div class="t3js-querybuilder-queries">' +
+      '<select name="recent-queries" class="form-control" id="t3js-querybuilder-recent-queries">' +
+      '<option class="first-opt" value="-1"></option>' +
+      '</select>' +
+      '</div>' +
+      '<div style="margin-top: 5px;">' +
+      '<buttton type="button" class="btn btn-default btn-sm recent-queries__button-remove" disabled>' + (TYPO3.lang['recentQueries.delete'] || 'Delete selected query') +'</buttton>' +
+      '</div>' +
+      '</div>',
     //table: $('table[data-table]').data('table'),
     table: Vidi.module.dataType,
     querySelector: null,
@@ -115,6 +118,7 @@ define(['jquery',
     QueryBuilder.table = $('table[data-table]').data('table') || QueryBuilder.getUrlVars()['table'];
     $(QueryBuilder.template).insertAfter(QueryBuilder.selectorBuilderPosition);
     QueryBuilder.querySelector = $('#t3js-querybuilder-recent-queries');
+    QueryBuilder.querySelectorRemoveButton = $('.recent-queries__button-remove');
     var $queryBuilderContainer = $(QueryBuilder.selectorBuilderContainer);
     if (QueryBuilder.buttons.length > 0) {
       var $buttonGroup = $queryBuilderContainer.find('.btn-group');
@@ -132,6 +136,7 @@ define(['jquery',
     QueryBuilder.initializeRecentQueries(QueryBuilder.querySelector);
     QueryBuilder.initializeEvents();
     QueryBuilder.instance = $queryBuilderContainer.find(QueryBuilder.selectorBuilder).queryBuilder({
+      allow_invalid: true,
       allow_empty: true,
       icons: {
         'add_group': 'fa fa-plus-circle',
@@ -197,12 +202,12 @@ define(['jquery',
       var url = self.location.href;
       switch (action) {
         case 'apply':
-          var configuration = QueryBuilder.instance.queryBuilder('getRules');
+          var configuration = QueryBuilder.instance.queryBuilder('getRules', {allow_invalid: true});
 
           // add coordinates data to filters
           var coordinates = JSON.parse(Vidi.Session.get('coordinates'));
 
-          if (coordinates !== null) {
+          if (coordinates !== null && configuration !== null) {
             configuration.address = coordinates.address;
             configuration.radius = coordinates.radius;
             configuration.lat = coordinates.lat;
@@ -254,6 +259,11 @@ define(['jquery',
           var $query = $('<option />', {value: data[j].uid, 'data-query': data[j].where_parts}).text(data[j].queryname);
           $querySelector.append($query);
         }
+
+        if ($querySelector.find('option').length > 1 && parseInt($querySelector.find(":selected").val()) > -1) {
+          QueryBuilder.querySelectorRemoveButton.removeAttr('disabled');
+        }
+
         $querySelector.on('change', function() {
           var $option = $(this.options[this.selectedIndex]);
           try {
@@ -261,11 +271,46 @@ define(['jquery',
             if (Vidi.module.showLocationSearchForm) {
               Vidi.LocationGeocoder.setLocationData($option.data('query'));
             }
+            if ($option.val() > 0) {
+              QueryBuilder.querySelectorRemoveButton.removeAttr('disabled');
+            } else {
+              QueryBuilder.querySelectorRemoveButton.attr('disabled', true);
+            }
           } catch (err) {
+            QueryBuilder.querySelectorRemoveButton.attr('disabled', true);
             console.log(err.message);
           }
         });
       }
+    });
+
+    QueryBuilder.querySelectorRemoveButton.click(function (e) {
+      e.preventDefault();
+
+      if (parseInt($querySelector.find(":selected").val()) < 1) {
+        return;
+      }
+      var queryBuilderAjaxUrl = TYPO3.settings.ajaxUrls.querybuilder_delete_query;
+      var uid = parseInt($querySelector.find(":selected").val());
+
+      $.ajax({
+        url: queryBuilderAjaxUrl,
+        cache: false,
+        data: {
+          uid: uid
+        },
+        success: function(data) {
+          if (data.status === 'ok') {
+            Notification.success((TYPO3.lang['recentQueries.deleted'] || 'Query deleted'), TYPO3.lang['recentQueries.deleted.text'] || 'Your query has been deleted');
+            $('option[value="' + uid + '"]', QueryBuilder.querySelector).remove();
+            if (QueryBuilder.querySelector.find('option').length < 2) {
+              QueryBuilder.querySelectorRemoveButton.attr('disabled', true);
+            }
+          } else {
+            Notification.error((TYPO3.lang['recentQueries.delete.error'] || 'Query delete error'), TYPO3.lang['recentQueries.delete.error.text'] || 'An error occurred while deleting the selected query.');
+          }
+        }
+      });
     });
   };
 
@@ -316,10 +361,10 @@ define(['jquery',
             var queryName = $('input[name=queryname]', Modal.currentModal).val();
             var override = $('input[name=override]', Modal.currentModal).is(':checked');
             // store also coordinates if they exists
-            var configuration = QueryBuilder.instance.queryBuilder('getRules');
+            var configuration = QueryBuilder.instance.queryBuilder('getRules', {allow_invalid: true});
             var coordinates = JSON.parse(Vidi.Session.get('coordinates'));
 
-            if (coordinates !== null) {
+            if (coordinates !== null && configuration !== null) {
               configuration.address = coordinates.address;
               configuration.radius = coordinates.radius;
               configuration.lat = coordinates.lat;
@@ -346,6 +391,7 @@ define(['jquery',
                     var $query = $('<option />', {value: data.uid, 'data-query': query}).text(queryName);
                     QueryBuilder.querySelector.append($query);
                     QueryBuilder.querySelector.val('' + data.uid);
+                    QueryBuilder.querySelectorRemoveButton.removeAttr('disabled');
                   }
                 }
               }
@@ -363,7 +409,7 @@ define(['jquery',
     // processing filters makes sens only if we have some rules defined, if there
     // are none just do nothing and show an informational message to the user
     if (!QueryBuilder.instance.queryBuilder('validate') || !configuration.rules.length) {
-      Notification.warning('You can\'t apply an empty filter. Please define some conditions.');
+      Notification.warning(TYPO3.lang['filters.apply.empty'] || 'You can\'t apply an empty filter. Please define some conditions.');
       return;
     }
 
