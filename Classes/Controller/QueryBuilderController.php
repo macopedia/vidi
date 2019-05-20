@@ -39,11 +39,12 @@ class QueryBuilderController
         $requestParams = $request->getQueryParams();
 
         $uid = (int)$requestParams['uid'];
+        
         if ((int)$requestParams['override'] === 1 && $uid > 0) {
             $result->uid = $uid;
 
             $clause = '1 = 1';
-            $clause .= ' AND uid=' . (int)uid;
+            $clause .= ' AND uid=' . $uid;
             $clause .= ' AND user=' . (int)$GLOBALS['BE_USER']->user['uid'];
 
             $data = [
