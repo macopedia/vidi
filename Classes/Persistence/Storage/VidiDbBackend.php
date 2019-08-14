@@ -188,7 +188,7 @@ class VidiDbBackend
             if (isset($statementParts['keywords']['distinct'])) {
                 unset($statementParts['keywords']['distinct']);
                 $distinctField = $this->query->getDistinct() ? $this->query->getDistinct() : 'uid';
-                $statementParts['fields'] = array('COUNT(DISTINCT ' . reset($statementParts['tables']) . '.' . $distinctField . ')');
+                $statementParts['fields'] = array('DISTINCT ' . reset($statementParts['tables']) . '.' . $distinctField);
             }
 
             $statement = $this->buildQuery($statementParts);
@@ -199,8 +199,9 @@ class VidiDbBackend
             $this->checkSqlErrors($statement);
             $count = 0;
             if ($result) {
-                $row = $this->databaseHandle->sql_fetch_assoc($result);
-                $count = current($row);
+                // temporary solution to avoid query hanging when there was COUNT(DISTINCT ....) used above
+                // and query contained a lot of LEFT JOINS (the whole query was hanging)
+                $count = $this->databaseHandle->sql_num_rows($result);
             }
         }
         $this->databaseHandle->sql_free_result($result);
