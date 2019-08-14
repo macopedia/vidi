@@ -182,7 +182,7 @@ class VidiDbBackend
             $this->checkSqlErrors($statement);
             $count = $this->databaseHandle->sql_num_rows($result);
         } else {
-            $statementParts['fields'] = array('COUNT(*)');
+            $statementParts['fields'] = array('*');
             // having orderings without grouping is not compatible with non-MySQL DBMS
             $statementParts['orderings'] = [];
             if (isset($statementParts['keywords']['distinct'])) {
