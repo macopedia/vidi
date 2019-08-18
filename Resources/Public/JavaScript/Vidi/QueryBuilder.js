@@ -39,9 +39,6 @@ define(['jquery',
     selectorBuilderContainer: '.t3js-querybuilder',
     selectorBuilder: '.t3js-querybuilder-builder',
     template: '<div class="t3js-querybuilder">' +
-      '<div class="t3js-querybuilder-builder"></div>' +
-      '<div class="t3js-location-geocoder-container"></div>' +
-      '<div class="btn-group"></div>' +
       '<div class="t3js-querybuilder-queries">' +
       '<select name="recent-queries" class="form-control" id="t3js-querybuilder-recent-queries">' +
       '<option class="first-opt" value="-1"></option>' +
@@ -50,6 +47,9 @@ define(['jquery',
       '<div style="margin-top: 5px;">' +
       '<buttton type="button" class="btn btn-default btn-sm recent-queries__button-remove" disabled>' + (TYPO3.lang['recentQueries.delete'] || 'Delete selected query') +'</buttton>' +
       '</div>' +
+      '<div class="t3js-querybuilder-builder"></div>' +
+      '<div class="t3js-location-geocoder-container"></div>' +
+      '<div class="btn-group"></div>' +
       '</div>',
     //table: $('table[data-table]').data('table'),
     table: Vidi.module.dataType,
