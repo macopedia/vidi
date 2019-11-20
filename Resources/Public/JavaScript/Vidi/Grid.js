@@ -145,8 +145,8 @@ define([
 						}*/
 
 						if (Vidi.Session.has('queryFilters')) {
-                        	data['queryFilters'] = Vidi.Session.get('queryFilters');
-                        }
+              data['queryFilters'] = Vidi.Session.get('queryFilters');
+            }
 
 						data = Vidi.Grid.addAjaxAdditionalParameters(data);
 

@@ -266,6 +266,7 @@ define(['jquery',
 
         $querySelector.on('change', function() {
           var $option = $(this.options[this.selectedIndex]);
+
           try {
             QueryBuilder.instance.queryBuilder('setRules', $option.data('query'));
             if (Vidi.module.showLocationSearchForm) {
@@ -386,7 +387,8 @@ define(['jquery',
                   Modal.currentModal.trigger('modal-dismiss');
                   Notification.success(TYPO3.lang['modal.success.headline'] || 'Query saved', TYPO3.lang['modal.success.text'] || 'Your query has been saved');
                   if (override) {
-                    $('option[value="' + uid + '"]', QueryBuilder.querySelector).text(queryName);
+                    var $updatedOption = $('option[value="' + uid + '"]', QueryBuilder.querySelector);
+                    $($updatedOption).data('query', JSON.parse(query)).text(queryName);
                   } else {
                     var $query = $('<option />', {value: data.uid, 'data-query': query}).text(queryName);
                     QueryBuilder.querySelector.append($query);
